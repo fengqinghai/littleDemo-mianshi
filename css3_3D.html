@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>3D旋转</title>
+    <style>
+        nav{
+			width:500px;
+			height:500px;
+			/*background-color:cyan;*/
+			margin:40px auto 0;
+			transform-style:preserve-3d;
+			-ms-transform-style:preserve-3d;
+			-moz-transform-style:preserve-3d;
+			-webkit-transform-style:preserve-3d;
+            -o-transform-style:preserve-3d;
+            /* 透视距离 */
+			perspective:20000px;
+		}
+		section{
+			width:300px;
+			height:300px;
+			/*background-color:pink;*/
+			
+			position: relative;
+			top:100px;left:100px;
+			/*声明3d效果*/
+			transform-style:preserve-3d;
+			-ms-transform-style:preserve-3d;
+			-moz-transform-style:preserve-3d;
+			-webkit-transform-style:preserve-3d;
+			-o-transform-style:preserve-3d;
+			/*透视度*/
+			perspective:20000px;
+			/*-ms-perspective:500px;
+			-moz-perspective:500px;
+			-webkit-perspective:500px;
+			-o-perspective:500px;*/
+
+			/*transform:rotateY(-45deg) rotateX(0deg) rotateZ(0deg);*/
+
+		}
+		
+		
+		div{
+			width:200px;
+			height:200px;
+			position: absolute;
+			top:50px;left:50px;
+			/*opacity:0.8;*/
+			
+		}
+		.b6{
+            transform:translateZ(100px);
+            background:red;
+		}
+		.b1{
+            transform:rotateY(180deg) translateZ(100px);
+            background:orange;
+		}
+		.b5{
+            transform:rotateX(90deg) translateZ(100px);
+            background:yellow;
+		}
+		.b2{
+            transform:rotateX(-90deg) translateZ(100px);
+            background:green;
+		}
+		.b4{
+            transform:rotateY(-90deg) translateZ(100px);
+            background:lightgreen;
+		}
+		.b3{
+            transform:rotateY(90deg) translateZ(100px);
+            background:blue;
+		}
+		/*创建动画帧*/
+		@keyframes donghua{
+			0%{
+				transform:rotate3d(0deg);
+			}
+			30%{
+				transform:rotate3d(1,1,1,90deg);
+			}
+			60%{
+				transform:rotate3d(1,1,1,180deg);
+			}
+			80%{
+				transform:rotate3d(1,1,1,270deg);
+			}
+			100%{
+				transform:rotate3d(1,1,1,360deg);
+			}
+		}
+		nav{
+			animation:donghua 10s linear 0s infinite;
+		}
+    </style>
+</head>
+<body>
+    <nav>
+        <section>
+                <div class="b1">1</div>
+                <div class="b2">2</div>
+                <div class="b3">3</div>
+                <div class="b4">4</div>
+                <div class="b5">5</div>
+                <div class="b6">6</div>
+        </section>
+    </nav>
+</body>
+</html>
