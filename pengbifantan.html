@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>碰壁反弹</title>
+    <style>
+        *{
+			margin:0;padding:0;list-style:none;
+		}
+        html{
+            font-size:1vw;
+        }
+		#outer{
+			width:50rem;
+			height:40rem;
+			margin:1rem auto;
+            background: pink;
+			position: relative;
+		}
+		#inner{
+			width:8rem;
+			height:8rem;
+            line-height:8rem;
+            text-align: center;
+			background:orange;
+			position: absolute;
+			left:0;
+			top:0;
+		}
+    </style>
+</head>
+<body>
+    <div id="outer">
+		<div id="inner">moving</div>
+	</div>
+</body>
+<script>
+    var outer=document.getElementById('outer'),//外层元素
+        inner=document.getElementById('inner'),//内层元素
+        time=null,
+        moveX=true,moveY=true,
+        posX=0,posY=0,
+        clientW=outer.clientWidth-inner.clientWidth,//方块儿x方向的移动空间
+        clientH=outer.clientHeight-inner.clientHeight;//方块儿y方向的移动空间
+        
+    function move(){
+        if(moveX){
+			posX++;
+			if(posX>=clientW){
+				moveX=false;
+			}
+			inner.style.left=posX+'px';
+		}else{
+			posX--;
+			if(posX<=0){
+				moveX=true;
+			}
+			inner.style.left=posX+"px";
+		}
+		if(moveY){
+			posY++;
+			if(posY>=clientH){
+				moveY=false;
+			}
+			inner.style.top=posY+"px";
+		}else{
+			posY--;
+			if(posY<=0){
+				moveY=true;
+			}
+			inner.style.top=posY+"px";
+		}
+    }
+    time =setInterval(move,3);
+    inner.onmouseover=function(){
+		clearInterval(time);
+        inner.innerHTML="stop";
+	}
+    inner.onmouseout=function(){
+        beginMove();
+		function beginMove(){
+			inner.innerHTML="moving";
+			time=setInterval(move,3);
+		}
+	}
+
+
+
+
+</script>
+</html>
