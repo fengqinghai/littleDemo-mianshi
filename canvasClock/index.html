@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>风景时钟</title>
+</head>
+<body>
+	<canvas id="canvas" width="405" height="405" style="border-radius:50%;"></canvas>
+<script>
+var canvas=document.getElementById('canvas');
+var cxt=canvas.getContext('2d');
+// 创建img图片对象，用drawImage方法，把图片放在画布上
+// 代码中 用clip()方法裁剪图片
+var img=new Image();
+img.src="img/Hydrangeas.jpg";
+img.onload=function(){
+	// cxt.drawImage(img,0,0,405,405);
+	clock();
+	setInterval(clock,1000);
+}
+// 将所有代码用一个函数包起来
+function clock(){
+
+	// 获取时间
+	var date=new Date();
+	var hour=date.getHours();
+	var min=date.getMinutes();
+	var sec=date.getSeconds();
+	hour=hour>12?hour-12:hour;//用三木运算符换算一下小时数
+	hour=hour+(min/60);
+	min=min+(sec/60);
+	console.log(hour,min,sec)
+	// 每秒执行前，清空一下画布，就不会照成磊加，重复的情况了
+
+	cxt.clearRect(0,0,405,405);
+	cxt.drawImage(img,0,0,405,405);//每次画布清空之后，把图片挂上去
+	// 添加文字-----------------------------
+	cxt.save();//保存以上状态
+	cxt.font="20px 微软雅黑";
+	cxt.textAlign="center";
+	cxt.fillStyle="orangered";
+	cxt.fillText("made in china",202.5,350);
+	cxt.restore();
+	// 添加时间文字
+	cxt.save();
+	cxt.fillStyle="white";
+	cxt.font="18px w微软雅黑";
+	cxt.textAlign="center";
+	var txt=date.getHours()+":"+date.getMinutes()+":"+date.getSeconds();
+	cxt.fillText(txt,202.5,320);
+	cxt.restore();
+	// 绘制时钟
+
+	// 画圆盘
+	cxt.save();
+	cxt.strokeStyle="#00FFFF";
+	cxt.lineWidth="10";
+	cxt.beginPath();
+	cxt.arc(202.5,202.5,200,0,2*Math.PI,false);//顺时针
+	cxt.stroke();
+	cxt.closePath();
+	cxt.clip();//裁剪图片
+	cxt.restore();
+	// 画时刻度
+	cxt.save();//保存此时的状态
+	cxt.translate(202.5,202.5);//将画布原点移动到圆心点上
+	cxt.strokeStyle="#ffff00";
+	cxt.lineWidth=7;
+	for(var i=0;i<12;i++){
+		
+		cxt.rotate(30*Math.PI/180)
+		cxt.beginPath();
+		cxt.moveTo(0,-195);
+		cxt.lineTo(0,-175);
+		cxt.closePath();
+		cxt.stroke();
+		
+	}
+	cxt.restore();//回到上次保存的状态
+
+	// 画分刻度 60个
+	// 将时刻度的代码拷贝过来，该一下数据
+	cxt.save();
+
+	cxt.translate(202.5,202.5);//将画布原点移动到圆心点上
+	cxt.strokeStyle="#ffff00";
+	cxt.lineWidth=5;//分刻度线条宽度为5，比是刻度细
+
+	for(var i=0;i<60;i++){
+		cxt.rotate(6*Math.PI/180)
+		cxt.beginPath();
+		cxt.moveTo(0,-195);
+		cxt.lineTo(0,-185);
+		cxt.closePath();
+		cxt.stroke();
+	}
+	
+	cxt.restore();
+
+	// 画时针
+	cxt.save();//保存起点坐标
+
+	cxt.lineWidth="7";
+	cxt.strokeStyle="#00ffff";
+	cxt.translate(202.5,202.5);//将坐标点移到 圆心(旋转好操作)
+	cxt.rotate(hour*30*Math.PI/180)//一小时 转30度
+
+	cxt.beginPath();
+	cxt.moveTo(0,-130);
+	cxt.lineTo(0,-10);
+	cxt.closePath();
+	cxt.stroke();
+
+	cxt.restore();
+
+	// 画分针
+	cxt.save();//保存起点坐标
+
+	cxt.lineWidth="5";
+	cxt.strokeStyle="#ffff00";
+	cxt.translate(202.5,202.5);//将坐标点移到 圆心(旋转好操作)
+	cxt.rotate(min*6*Math.PI/180)//一分钟转6度
+
+	cxt.beginPath();
+	cxt.moveTo(0,-150);
+	cxt.lineTo(0,-10);
+	cxt.closePath();
+	cxt.stroke();
+	
+	cxt.restore();
+
+	// 画秒针
+	cxt.save();//保存起点坐标
+
+	cxt.lineWidth="3";
+	cxt.strokeStyle="#ff0000";
+	cxt.translate(202.5,202.5);//将坐标点移到 圆心(旋转好操作)
+	cxt.rotate(sec*6*Math.PI/180)//一秒钟转6度
+
+	cxt.beginPath();
+	cxt.moveTo(0,-170);
+	cxt.lineTo(0,-10);
+	cxt.closePath();
+	cxt.stroke();
+	// 画秒针上的小圆
+	cxt.beginPath();
+	cxt.arc(0,0,7,0,2*Math.PI);
+	cxt.closePath();
+	cxt.strokeStyle="#ff0000";
+	cxt.fillStyle="#ffff00";
+	cxt.fill();
+	cxt.stroke();
+
+	cxt.beginPath();
+	cxt.arc(0,-140,7,0,2*Math.PI);
+	cxt.closePath();
+	cxt.strokeStyle="#ff0000";
+	cxt.fillStyle="#ffff00";
+	cxt.fill();
+	cxt.stroke();
+
+	cxt.restore();
+}
+// 执行一下
+// clock();
+// setInterval(clock,1000);
+</script>
+</body>
+</html>
