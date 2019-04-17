@@ -1,0 +1,59 @@
+*{
+	margin:0;
+	padding:0;
+	list-style: none;
+	text-decoration:none;
+}
+body{
+	background: url('../img/3.jpg');
+}
+h3{
+	display: block;
+	text-align: center;
+	margin-top:50px;
+	font-size: 20px;
+}
+.contain{
+	width:500px;
+	position: absolute;
+	left:50%;
+	margin-left:-200px;
+}
+.contain a{
+	width:130px;
+	height:36px;
+	text-align: center;
+	line-height: 36px;
+	display: block;
+	border:3px solid #67C330;
+	margin-top:100px;color: black;
+	border-radius:8px;background: 
+	linear-gradient(180deg,white,#67C330);
+}
+.shadow{
+	width:100%;
+	position: absolute;top:0;
+	background: rgba(0,0,0,0.5);
+}
+.dialog{
+	width:500px;
+	position: absolute;
+	background: white;left:50%;
+	margin-left: -240px;
+	margin-top:20px;
+}
+.dialog p{
+	height:300px;
+	overflow: scroll;
+	padding:20px;
+}
+.dialog button{
+	width:130px;
+	height:36px;
+	border:2px solid #3D92B6;
+	background: linear-gradient(180deg,white,#3D92B6);
+	margin:50px auto 20px;display: block;
+	border-radius: 8px;
+	box-shadow: 0 0 0 3px white inset;
+	cursor: pointer;
+}
