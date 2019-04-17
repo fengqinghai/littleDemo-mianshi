@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>拖拽</title>
+    <style>
+        *{
+            margin:0;padding: 0;
+        }
+        #outer{
+            width:500px;
+            height:500px;
+            background:pink;
+            margin:20px auto;
+            position: relative;
+        }
+        #myDiv{
+            width:100px;
+            height:100px;
+            background:orange;
+            position: absolute;
+            cursor:move;
+        }
+    </style>
+</head>
+<body>
+    <div id="outer">
+        <div id="myDiv"></div>
+    </div>
+    
+<script>
+    
+
+    var outer=document.getElementById("outer"),
+        myDiv=document.getElementById("myDiv");
+    myDiv.onmousedown=function(e){
+        var eve=e||event,
+            diffX=eve.clientX-myDiv.offsetLeft-outer.offsetLeft,//鼠标在盒子上的位置
+            diffY=eve.clientY-myDiv.offsetTop-outer.offsetTop,//鼠标在盒子上的位置
+            offetLeft=outer.offsetLeft,
+            offsetTop=outer.offsetTop;
+
+        document.onmousemove=function(e){
+            var eve=e||event,
+                posX=eve.clientX-offetLeft-diffX,//盒子的位置
+                posY=eve.clientY-offsetTop-diffY,//盒子的位置
+                maxW=outer.clientWidth-myDiv.offsetWidth,
+                maxH=outer.clientHeight-myDiv.offsetHeight;
+            if(posX<0){posX=0;}
+			if(posY<0){posY=0;}
+			if(posX>maxW){posX=maxW;}
+			if(posY>maxH){posY=maxH;}
+			myDiv.style.left=posX+"px";
+			myDiv.style.top=posY+"px";
+        }
+        myDiv.onmouseup=function(){
+			document.onmousemove=null;
+		}
+        outer.onmouseleave=function(){
+            document.onmousemove=null;
+        }
+    }
+    
+
+
+
+</script>
+</body>
+</html>
